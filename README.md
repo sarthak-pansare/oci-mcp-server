@@ -75,7 +75,7 @@ key_file=~/.oci/oci_api_key.pem
 ### 3. Clone + install
 
 ```bash
-git clone https://github.com/your-username/oci-mcp-server
+git clone https://github.com/sarthak-pansare/oci-mcp-server
 cd oci-mcp-server
 uv sync
 ```

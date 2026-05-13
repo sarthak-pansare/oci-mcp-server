@@ -5,7 +5,7 @@ Thanks for taking the time to contribute.
 ## Quick start
 
 ```bash
-git clone https://github.com/your-username/oci-mcp-server
+git clone https://github.com/sarthak-pansare/oci-mcp-server
 cd oci-mcp-server
 uv sync --extra dev
 uv run pytest

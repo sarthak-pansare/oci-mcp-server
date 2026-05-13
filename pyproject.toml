@@ -37,10 +37,10 @@ dev = [
 oci-mcp-server = "oci_mcp.__main__:main"
 
 [project.urls]
-Homepage = "https://github.com/your-username/oci-mcp-server"
-Repository = "https://github.com/your-username/oci-mcp-server"
-Issues = "https://github.com/your-username/oci-mcp-server/issues"
-Changelog = "https://github.com/your-username/oci-mcp-server/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/sarthak-pansare/oci-mcp-server"
+Repository = "https://github.com/sarthak-pansare/oci-mcp-server"
+Issues = "https://github.com/sarthak-pansare/oci-mcp-server/issues"
+Changelog = "https://github.com/sarthak-pansare/oci-mcp-server/blob/main/CHANGELOG.md"
 
 [build-system]
 requires = ["hatchling"]

@@ -3,7 +3,7 @@ FROM python:3.12-slim
 LABEL org.opencontainers.image.title="oci-mcp-server" \
       org.opencontainers.image.description="MCP server for Oracle Cloud Infrastructure" \
       org.opencontainers.image.licenses="Apache-2.0" \
-      org.opencontainers.image.source="https://github.com/your-username/oci-mcp-server"
+      org.opencontainers.image.source="https://github.com/sarthak-pansare/oci-mcp-server"
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
