@@ -70,12 +70,14 @@ def register(mcp):
     ) -> dict:
         """List Network Load Balancers (L4)."""
         try:
-            items, next_page = page_list(
+            data, next_page = page_list(
                 get_client("nlb").list_network_load_balancers,
                 compartment_id or tenancy_id(),
                 limit=limit,
                 page=page,
             )
+            # NLB returns a NetworkLoadBalancerCollection wrapper; LB returns a plain list.
+            raw_items = data.items if hasattr(data, "items") else data
             return strip_nulls(
                 {
                     "items": [
@@ -87,12 +89,7 @@ def register(mcp):
                                 "ips": [ip.ip_address for ip in (n.ip_addresses or [])],
                             }
                         )
-                        for n in items.items
-                    ]
-                    if hasattr(items, "items")
-                    else [
-                        strip_nulls({"id": n.id, "name": n.display_name, "state": n.lifecycle_state})
-                        for n in items
+                        for n in raw_items
                     ],
                     "next_page": next_page,
                 }

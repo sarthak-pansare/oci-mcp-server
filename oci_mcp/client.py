@@ -39,6 +39,11 @@ def _config() -> dict:
         return cfg
 
 
+def config() -> dict:
+    """Return the loaded OCI config dict (with env-var overrides applied)."""
+    return _config()
+
+
 def tenancy_id() -> str:
     return _config()["tenancy"]
 

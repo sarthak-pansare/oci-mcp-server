@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import oci
 
-from .client import get_client, tenancy_id
+from .client import config, get_client, tenancy_id
 from .util import map_oci_error, s_vault, strip_nulls
 
 
@@ -42,8 +42,9 @@ def register(mcp):
     def list_keys(compartment_id: str, management_endpoint: str, limit: int = 50) -> dict:
         """List keys in a vault. Get management_endpoint from get_vault."""
         try:
-            cfg = oci.config.from_file()
-            kms = oci.key_management.KmsManagementClient(cfg, management_endpoint)
+            # KmsManagementClient is per-vault — uses the vault's management endpoint
+            # rather than a global region URL — but auth comes from our shared config.
+            kms = oci.key_management.KmsManagementClient(config(), management_endpoint)
             items = oci.pagination.list_call_get_all_results(
                 kms.list_keys, compartment_id
             ).data[:limit]

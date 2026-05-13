@@ -202,37 +202,107 @@ def register(mcp):
         instance_id: str | None = None,
         vcn_id: str | None = None,
     ) -> dict:
-        """Terminate an instance and tear down its VCN (subnets, gateways, security lists)."""
+        """Terminate an instance and tear down its VCN (subnets, gateways, security lists).
+
+        Order: instance(s) -> subnets -> clear route tables -> IGW/NAT/Service gateways
+        -> non-default security lists -> non-default route tables -> VCN.
+        """
         try:
             net = get_client("network")
             compute = get_client("compute")
-            killed = []
+            killed: list[dict] = []
+            problems: list[dict] = []
+
             if instance_id:
                 compute.terminate_instance(instance_id, preserve_boot_volume=False)
                 killed.append({"instance": instance_id})
                 _wait(compute.get_instance, instance_id, {"TERMINATED"})
-            if vcn_id:
-                for s in oci.pagination.list_call_get_all_results(
-                    net.list_subnets, compartment_id, vcn_id=vcn_id
-                ).data:
+
+            if not vcn_id:
+                return {"removed": killed}
+
+            # 1) Subnets
+            for s in oci.pagination.list_call_get_all_results(
+                net.list_subnets, compartment_id, vcn_id=vcn_id
+            ).data:
+                try:
                     net.delete_subnet(s.id)
                     killed.append({"subnet": s.id})
-                for g in oci.pagination.list_call_get_all_results(
-                    net.list_internet_gateways, compartment_id, vcn_id=vcn_id
-                ).data:
+                except Exception as e:
+                    problems.append({"subnet": s.id, "error": str(e)})
+
+            # 2) Clear route rules on every route table in the VCN (removes
+            #    references to gateways so they can be deleted next).
+            for rt in oci.pagination.list_call_get_all_results(
+                net.list_route_tables, compartment_id, vcn_id=vcn_id
+            ).data:
+                try:
+                    net.update_route_table(
+                        rt.id, oci.core.models.UpdateRouteTableDetails(route_rules=[])
+                    )
+                except Exception as e:
+                    problems.append({"route_table_clear": rt.id, "error": str(e)})
+
+            # 3) Gateways (IGW, NAT, Service)
+            for g in oci.pagination.list_call_get_all_results(
+                net.list_internet_gateways, compartment_id, vcn_id=vcn_id
+            ).data:
+                try:
                     net.delete_internet_gateway(g.id)
                     killed.append({"igw": g.id})
-                for sl in oci.pagination.list_call_get_all_results(
-                    net.list_security_lists, compartment_id, vcn_id=vcn_id
-                ).data:
-                    if not sl.display_name.startswith("Default"):
-                        try:
-                            net.delete_security_list(sl.id)
-                            killed.append({"seclist": sl.id})
-                        except Exception:
-                            pass
+                except Exception as e:
+                    problems.append({"igw": g.id, "error": str(e)})
+            for g in oci.pagination.list_call_get_all_results(
+                net.list_nat_gateways, compartment_id, vcn_id=vcn_id
+            ).data:
+                try:
+                    net.delete_nat_gateway(g.id)
+                    killed.append({"nat_gw": g.id})
+                except Exception as e:
+                    problems.append({"nat_gw": g.id, "error": str(e)})
+            for g in oci.pagination.list_call_get_all_results(
+                net.list_service_gateways, compartment_id, vcn_id=vcn_id
+            ).data:
+                try:
+                    net.delete_service_gateway(g.id)
+                    killed.append({"service_gw": g.id})
+                except Exception as e:
+                    problems.append({"service_gw": g.id, "error": str(e)})
+
+            # 4) Non-default security lists
+            for sl in oci.pagination.list_call_get_all_results(
+                net.list_security_lists, compartment_id, vcn_id=vcn_id
+            ).data:
+                if sl.display_name.startswith("Default"):
+                    continue
+                try:
+                    net.delete_security_list(sl.id)
+                    killed.append({"seclist": sl.id})
+                except Exception as e:
+                    problems.append({"seclist": sl.id, "error": str(e)})
+
+            # 5) Non-default route tables (default RT goes with the VCN)
+            for rt in oci.pagination.list_call_get_all_results(
+                net.list_route_tables, compartment_id, vcn_id=vcn_id
+            ).data:
+                if rt.display_name.startswith("Default"):
+                    continue
+                try:
+                    net.delete_route_table(rt.id)
+                    killed.append({"route_table": rt.id})
+                except Exception as e:
+                    problems.append({"route_table": rt.id, "error": str(e)})
+
+            # 6) VCN
+            try:
                 net.delete_vcn(vcn_id)
                 killed.append({"vcn": vcn_id})
-            return {"removed": killed}
+            except Exception as e:
+                problems.append({"vcn": vcn_id, "error": str(e)})
+
+            out: dict = {"removed": killed}
+            if problems:
+                out["problems"] = problems
+            return out
         except Exception as exc:
             raise map_oci_error(exc) from exc
