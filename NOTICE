@@ -1,7 +1,8 @@
 OCI MCP Server
-Copyright 2026 OCI MCP Server contributors
+Copyright 2026 Sarthak Pansare (https://github.com/sarthak-pansare)
 
-This product includes software developed at the OCI MCP Server project
+This product includes software developed by Sarthak Pansare and contributors
+to the OCI MCP Server project
 (https://github.com/sarthak-pansare/oci-mcp-server).
 
 This product uses the Oracle Cloud Infrastructure SDK for Python

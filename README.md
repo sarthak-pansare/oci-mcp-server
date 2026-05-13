@@ -3,6 +3,9 @@
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
 [![MCP](https://img.shields.io/badge/protocol-MCP-orange.svg)](https://modelcontextprotocol.io)
+[![Author](https://img.shields.io/badge/created%20by-Sarthak%20Pansare-blueviolet)](https://github.com/sarthak-pansare)
+
+> Created and maintained by **[Sarthak Pansare](https://github.com/sarthak-pansare)** · open-source under Apache-2.0
 
 **Drive Oracle Cloud Infrastructure from any MCP-aware LLM client.**
 
@@ -275,9 +278,16 @@ Deploy a web server called demo with this SSH key: ssh-ed25519 AAAAC3...
 
 See [CONTRIBUTING.md](CONTRIBUTING.md). PRs welcome.
 
+## Author
+
+**Sarthak Pansare** — [@sarthak-pansare](https://github.com/sarthak-pansare)
+
+If this project saves you time, a ⭐ on the [GitHub repo](https://github.com/sarthak-pansare/oci-mcp-server) is appreciated.
+
 ## License
 
 Apache-2.0 — see [LICENSE](LICENSE).
+Copyright © 2026 Sarthak Pansare.
 
 ## Acknowledgements
 

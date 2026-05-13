@@ -8,11 +8,11 @@ The latest minor release is supported. Older releases receive security fixes on 
 
 **Do not open a public issue for security problems.**
 
-Please report vulnerabilities by emailing the maintainer or opening a private GitHub Security Advisory:
+Please report vulnerabilities to the maintainer **[Sarthak Pansare](https://github.com/sarthak-pansare)** by opening a private GitHub Security Advisory:
 
 - GitHub: https://github.com/sarthak-pansare/oci-mcp-server/security/advisories/new
 
-We'll acknowledge within 72 hours and aim to ship a fix within 14 days for high-severity issues.
+Sarthak will acknowledge within 72 hours and aim to ship a fix within 14 days for high-severity issues.
 
 ## Scope
 

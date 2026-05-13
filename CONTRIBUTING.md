@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for taking the time to contribute.
+Thanks for taking the time to contribute to OCI MCP Server. This project is created and maintained by **[Sarthak Pansare](https://github.com/sarthak-pansare)** and welcomes pull requests from the community.
 
 ## Quick start
 
