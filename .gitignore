@@ -1,0 +1,71 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual envs
+.env
+.venv
+env/
+venv/
+ENV/
+
+# uv
+.uv-cache/
+
+# Test / coverage
+.coverage
+.coverage.*
+htmlcov/
+.cache
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.tox/
+nosetests.xml
+coverage.xml
+*.cover
+
+# Editor / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Local secrets — NEVER commit OCI credentials
+.oci/
+*.pem
+*_api_key.pem
+oci_config
+oci.config
+
+# Build artifacts
+*.tar.gz
+*.zip
+
+# MCP transcripts / tmp
+tmp/
+.tmp/

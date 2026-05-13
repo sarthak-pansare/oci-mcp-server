@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "oci": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "/absolute/path/to/oci-mcp-server",
+        "run",
+        "oci-mcp-server"
+      ]
+    }
+  }
+}
