@@ -1,0 +1,55 @@
+name: Bug report
+description: Something isn't working
+title: "[bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug report.
+
+        ⚠️ Do NOT paste OCI credentials, private keys, or full OCIDs of resources you don't want public.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you expect? What did you actually get?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Tool call(s), prompt(s), or shell commands.
+      render: shell
+    validations:
+      required: true
+  - type: input
+    id: client
+    attributes:
+      label: MCP client
+      placeholder: "e.g. Claude Code 2.1.78, Cursor 0.45, Continue 0.9"
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: oci-mcp-server version
+      placeholder: "e.g. 0.1.0 (or commit SHA)"
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - macOS
+        - Linux
+        - Windows
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      render: shell

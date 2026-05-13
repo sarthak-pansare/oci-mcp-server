@@ -1,0 +1,44 @@
+name: Feature request
+description: Suggest a new tool or capability
+title: "[feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: Who hits this? How often?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: A tool name, parameters, expected behavior — be specific.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: dropdown
+    id: category
+    attributes:
+      label: OCI service area
+      options:
+        - Compute
+        - Networking
+        - Storage
+        - Database
+        - Kubernetes (OKE)
+        - Functions
+        - Load Balancer
+        - Vault / KMS
+        - Monitoring
+        - Logging
+        - DNS
+        - Events / Notifications
+        - Identity / IAM
+        - Other
+    validations:
+      required: true

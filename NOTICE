@@ -1,0 +1,13 @@
+OCI MCP Server
+Copyright 2026 OCI MCP Server contributors
+
+This product includes software developed at the OCI MCP Server project
+(https://github.com/your-username/oci-mcp-server).
+
+This product uses the Oracle Cloud Infrastructure SDK for Python
+(https://github.com/oracle/oci-python-sdk), licensed under the
+Universal Permissive License (UPL) 1.0 and Apache License 2.0.
+
+This product uses the Model Context Protocol Python SDK
+(https://github.com/modelcontextprotocol/python-sdk), licensed under the
+MIT License.
